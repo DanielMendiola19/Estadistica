@@ -101,15 +101,15 @@ function exponentialRegression(data) {
     return { a: a, b: b };
 }
 
-// Función para calcular la regresión de potencia (y = ax^b)
+// Función para calcular la regresión de potencia (y = ax^b) usando log10
 function powerRegression(data) {
-    // Transformación lineal: ln(y) = ln(a) + b·ln(x)
-    const x = data.map(point => Math.log(point.x));
-    const y = data.map(point => Math.log(point.y));
+    // Transformación lineal: log10(y) = log10(a) + b·log10(x)
+    const x = data.map(point => Math.log10(point.x));
+    const y = data.map(point => Math.log10(point.y));
     
     const { slope, intercept } = linearRegression(x, y);
     
-    const a = Math.exp(intercept);
+    const a = Math.pow(10, intercept); // 10^intercept porque usamos log10
     const b = slope;
     
     return { a: a, b: b };
